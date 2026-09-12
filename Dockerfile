@@ -18,6 +18,14 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN mkdir -p writable/cache \
+    writable/logs \
+    writable/debugbar \
+    writable/session \
+    writable/uploads \
+    && chown -R www-data:www-data writable \
+    && chmod -R 775 writable
+
 RUN cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
 <VirtualHost *:80>
     DocumentRoot /var/www/html/public
