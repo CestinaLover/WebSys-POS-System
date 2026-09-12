@@ -1,7 +1,11 @@
 FROM php:8.2-apache-bookworm
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libicu-dev unzip git \
+    && apt-get install -y --no-install-recommends \
+        libicu-dev \
+        libonig-dev \
+        unzip \
+        git \
     && docker-php-ext-install intl mbstring \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
@@ -24,5 +28,7 @@ RUN cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
     </Directory>
 </VirtualHost>
 EOF
+
+EXPOSE 80
 
 CMD ["apache2-foreground"]
