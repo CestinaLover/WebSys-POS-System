@@ -1,69 +1,188 @@
-# CodeIgniter 4 Application Starter
+<a name="readme-top"></a>
 
-## What is CodeIgniter?
+<br/>
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+<div align="center">
+  <h1 align="center">WebSys POS System</h1>
+</div>
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+<div align="center">
+  A basic Point-of-Sale web application built using CodeIgniter 4 and MVC architecture.
+</div>
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+<br/>
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Installation & updates
+## Overview
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+This project is a basic Point-of-Sale (POS) system developed for the IT0049 - Web System Technologies course.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+The project demonstrates the basic principles of CodeIgniter 4, routing, controllers, views, and the Model-View-Controller (MVC) architecture.
 
-## Setup
+This version of the system does not use a database. Customer and user records are stored in static PHP arrays as temporary data sources.
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## Description
 
-## Important Change with index.php
+The application contains four main pages:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+<b>Home:</b> The landing page of the POS system.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+<b>About:</b> Provides information about the application and the technologies used.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+<b>Customer Accounts:</b> Displays customer records including their full name, email, and phone number.
 
-## Repository Management
+<b>User Accounts:</b> Displays user and staff records including their username, full name, and role.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+The Customer Accounts and User Accounts pages use PHP `foreach` loops to display records from static arrays passed from their respective controllers.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Website Instructions
 
-## Server Requirements
+The website can be accessed through the following routes:
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+* `/` - Home page
+* `/about` - About page
+* `/customers` - Customer Accounts
+* `/users` - User Accounts
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Navigation links are provided on the pages to allow users to move between the four sections of the application.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+## MVC Flow
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+The application follows the basic CodeIgniter MVC flow:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+```text
+User visits a URL
+        ↓
+Route
+        ↓
+Controller
+        ↓
+Static PHP Array
+        ↓
+View
+        ↓
+HTML displayed in browser
+```
+
+For example:
+
+```text
+/customers
+    ↓
+Customers::index()
+    ↓
+$customers array
+    ↓
+Customers.php view
+    ↓
+foreach loop
+    ↓
+Customer table
+```
+
+## File Structure
+
+```text
+WebSys-POS-System
+├─ app
+│  ├─ Config
+│  │  └─ Routes.php
+│  ├─ Controllers
+│  │  ├─ BaseController.php
+│  │  ├─ Home.php
+│  │  ├─ Pages.php
+│  │  ├─ Customers.php
+│  │  └─ Users.php
+│  └─ Views
+│     ├─ Home.php
+│     ├─ About.php
+│     ├─ Customers.php
+│     ├─ Users.php
+│     └─ errors
+├─ public
+├─ tests
+├─ writable
+├─ composer.json
+├─ composer.lock
+├─ spark
+└─ README.md
+```
+
+## Technology
+
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge\&logo=php\&logoColor=white)
+![CodeIgniter](https://img.shields.io/badge/CodeIgniter-4-EE4623?style=for-the-badge\&logo=codeigniter\&logoColor=white)
+![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge\&logo=composer\&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge\&logo=html5\&logoColor=white)
+
+The project uses:
+
+* PHP 8.2
+* CodeIgniter 4
+* Composer
+* HTML
+* MVC architecture
+* Static PHP arrays
+
+## Installation and Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/CestinaLover/WebSys-POS-System.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd WebSys-POS-System
+```
+
+Install the project dependencies:
+
+```bash
+composer install
+```
+
+Create a `.env` file from the provided `env` file and configure the application base URL:
+
+```env
+app.baseURL = 'http://localhost:8080/'
+```
+
+Start the CodeIgniter development server:
+
+```bash
+php spark serve
+```
+
+Open the application in a browser:
+
+```text
+http://localhost:8080/
+```
+
+## Resources
+
+| Resource                               | Purpose                         | Link                                                               |
+| -------------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
+| CodeIgniter 4 User Guide - Routing     | Routing documentation           | https://codeigniter4.github.io/userguide/incoming/routing.html     |
+| CodeIgniter 4 User Guide - Controllers | Controller documentation        | https://codeigniter4.github.io/userguide/incoming/controllers.html |
+| CodeIgniter 4 User Guide               | General framework documentation | https://codeigniter.com/user_guide/                                |
+
+## Project Repository
+
+GitHub Repository:
+
+https://github.com/CestinaLover/WebSys-POS-System
+
+## Database
+
+This version of the project does not use a database.
+
+Customer Accounts and User Accounts use static PHP arrays as temporary data sources, as required by the laboratory activity. A database will be introduced in a later module.
+
+## Author
+
+CestinaLover
