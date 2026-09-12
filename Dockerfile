@@ -1,7 +1,7 @@
-FROM php:8.2-apache
+FROM php:8.2-apache-bookworm
 
 RUN apt-get update \
-    && apt-get install -y libicu-dev unzip git \
+    && apt-get install -y --no-install-recommends libicu-dev unzip git \
     && docker-php-ext-install intl mbstring \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
@@ -14,16 +14,15 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN printf '%s\n' \
-    '<VirtualHost *:80>' \
-    '    DocumentRoot /var/www/html/public' \
-    '    <Directory /var/www/html/public>' \
-    '        AllowOverride All' \
-    '        Require all granted' \
-    '    </Directory>' \
-    '</VirtualHost>' \
-    > /etc/apache2/sites-available/000-default.conf
+RUN cat > /etc/apache2/sites-available/000-default.conf <<'EOF'
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/public
 
-EXPOSE 80
+    <Directory /var/www/html/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+EOF
 
 CMD ["apache2-foreground"]
