@@ -14,22 +14,50 @@
     <a href="<?= base_url('/users') ?>">User Accounts</a>
 </nav>
 
+<p>
+    <a href="<?= base_url('/users/new') ?>">Add New User</a>
+</p>
+
 <h2>User List</h2>
 
 <table border="1">
     <tr>
+        <th>Avatar</th>
         <th>Username</th>
         <th>Full Name</th>
         <th>Created At</th>
+        <th>Action</th>
     </tr>
 
     <?php foreach ($users as $user): ?>
         <tr>
+            <td>
+                <?php if (! empty($user['avatar'])): ?>
+                    <img
+                        src="<?= base_url('uploads/avatars/' . $user['avatar']) ?>"
+                        width="80"
+                        height="80"
+                        alt="Avatar"
+                    >
+                <?php else: ?>
+                    <img
+                        src="<?= base_url('uploads/avatars/placeholder.png') ?>"
+                        width="80"
+                        height="80"
+                        alt="No Avatar"
+                    >
+                <?php endif; ?>
+            </td>
+
             <td><?= esc($user['username']) ?></td>
             <td><?= esc($user['full_name']) ?></td>
             <td><?= esc($user['created_at']) ?></td>
+            <td>
+                <a href="<?= base_url('/users/edit/' . $user['id']) ?>">Edit</a>
+            </td>
         </tr>
     <?php endforeach; ?>
+
 </table>
 
 </body>
