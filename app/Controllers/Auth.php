@@ -47,6 +47,6 @@ public function logout()
         'isLoggedIn'
     ]);
 
-    return redirect()->to('/');
+    return redirect()->to(base_url('/'));
 }
 }

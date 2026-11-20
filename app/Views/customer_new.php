@@ -7,12 +7,7 @@
 
 <h1>Add New Customer</h1>
 
-<nav>
-    <a href="<?= base_url('/') ?>">Home</a> |
-    <a href="<?= base_url('/customers') ?>">Customer Accounts</a> |
-    <a href="<?= base_url('/users') ?>">User Accounts</a> |
-    <a href="<?= base_url('/about') ?>">About</a>
-</nav>
+<?= view('navbar') ?>
 
 <?php if (session()->has('errors')): ?>
     <?php foreach (session('errors') as $error): ?>

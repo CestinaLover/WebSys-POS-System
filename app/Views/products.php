@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +7,7 @@
 
 <h1>Product Management</h1>
 
-<nav>
-    <a href="<?= base_url('/') ?>">Home</a> |
-    <a href="<?= base_url('/customers') ?>">Customers</a> |
-    <a href="<?= base_url('/users') ?>">Staff</a> |
-    <a href="<?= base_url('/products') ?>">Products</a> |
-    <a href="<?= base_url('/logout') ?>">Logout</a>
-</nav>
+<?= view('navbar') ?>
 
 <p><a href="<?= base_url('/products/new') ?>">Add Product</a></p>
 

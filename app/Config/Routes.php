@@ -41,3 +41,7 @@ $routes->post('/products/create', 'Products::create', ['filter' => 'auth']);
 $routes->get('/products/edit/(:num)', 'Products::edit/$1', ['filter' => 'auth']);
 $routes->post('/products/update/(:num)', 'Products::update/$1', ['filter' => 'auth']);
 $routes->post('/products/delete/(:num)', 'Products::delete/$1', ['filter' => 'auth']);
+
+$routes->get('/sales', 'Sales::index', ['filter' => 'auth']);
+$routes->get('/sales/new', 'Sales::new', ['filter' => 'auth']);
+$routes->post('/sales/create', 'Sales::create', ['filter' => 'auth']);

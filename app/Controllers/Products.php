@@ -6,14 +6,16 @@ use App\Models\ProductModel;
 
 class Products extends BaseController
 {
-    public function index()
-    {
-        $model = new ProductModel();
 
-        return view('products', [
-            'products' => $model->findAll()
-        ]);
-    }
+public function index()
+{
+    $model = new ProductModel();
+
+    return view('products', [
+        'products' => $model->findAll()
+    ]);
+}
+
 
     public function new()
     {

@@ -7,12 +7,7 @@
 
 <h1>Task List</h1>
 
-<nav>
-    <a href="<?= base_url('/') ?>">Home</a> |
-    <a href="<?= base_url('/tasks') ?>">Task List</a> |
-    <a href="<?= base_url('/profile') ?>">Profile</a> |
-    <a href="<?= base_url('/about') ?>">About</a>
-</nav>
+<?= view('navbar') ?>
 
 <h2>All Tasks</h2>
 
