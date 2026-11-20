@@ -1,9 +1,11 @@
 <nav>
-    <a href="<?= base_url('/') ?>">Home</a>
-    <a href="<?= base_url('/about') ?>">About</a>
-    <a href="<?= base_url('/customers') ?>">Customers</a>
-    <a href="<?= base_url('/users') ?>">Staff</a>
-    <a href="<?= base_url('/products') ?>">Products</a>
+    <a href="<?= base_url('/') ?>">Home</a> |
+    <a href="<?= base_url('/about') ?>">About</a> |
+    <a href="<?= base_url('/customers') ?>">Customers</a> |
+    <a href="<?= base_url('/users') ?>">Staff</a> |
+    <a href="<?= base_url('/products') ?>">Products</a> |
+    <a href="<?= base_url('/sales/new') ?>">Record Sale</a> |
+    <a href="<?= base_url('/sales') ?>">Sales History</a> |
 
     <?php if (session()->get('isLoggedIn')): ?>
         <a href="<?= base_url('/logout') ?>">Logout</a>

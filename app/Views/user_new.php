@@ -1,44 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New User</title>
+    <title>Add Staff</title>
 </head>
 <body>
 
-<h1>Add New User</h1>
-
 <?= view('navbar') ?>
 
-<?php if (session()->has('errors')): ?>
-    <?php foreach (session('errors') as $error): ?>
-        <p><?= esc($error) ?></p>
-    <?php endforeach; ?>
-<?php endif; ?>
+<h1>Add New Staff</h1>
+
+<?php foreach (session('errors') ?? [] as $error): ?>
+    <p><?= esc($error) ?></p>
+<?php endforeach; ?>
 
 <form action="<?= base_url('/users/create') ?>" method="post">
-
     <?= csrf_field() ?>
 
     <p>
         <label>Username</label><br>
-        <input
-            type="text"
-            name="username"
-            value="<?= old('username') ?>"
-        >
+        <input type="text" name="username"
+               value="<?= esc(old('username')) ?>" required>
     </p>
 
     <p>
         <label>Full Name</label><br>
-        <input
-            type="text"
-            name="full_name"
-            value="<?= old('full_name') ?>"
-        >
+        <input type="text" name="full_name"
+               value="<?= esc(old('full_name')) ?>" required>
     </p>
 
-    <button type="submit">Add User</button>
+    <p>
+        <label>Password</label><br>
+        <input type="password" name="password" required minlength="8">
+    </p>
 
+    <button type="submit">Add Staff</button>
 </form>
 
 </body>
