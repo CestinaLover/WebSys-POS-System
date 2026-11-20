@@ -34,3 +34,10 @@ $routes->get('/users/new', 'Users::new', ['filter' => 'auth']);
 $routes->post('/users/create', 'Users::create', ['filter' => 'auth']);
 $routes->get('/users/edit/(:num)', 'Users::edit/$1', ['filter' => 'auth']);
 $routes->post('/users/update/(:num)', 'Users::update/$1', ['filter' => 'auth']);
+
+$routes->get('/products', 'Products::index', ['filter' => 'auth']);
+$routes->get('/products/new', 'Products::new', ['filter' => 'auth']);
+$routes->post('/products/create', 'Products::create', ['filter' => 'auth']);
+$routes->get('/products/edit/(:num)', 'Products::edit/$1', ['filter' => 'auth']);
+$routes->post('/products/update/(:num)', 'Products::update/$1', ['filter' => 'auth']);
+$routes->post('/products/delete/(:num)', 'Products::delete/$1', ['filter' => 'auth']);
