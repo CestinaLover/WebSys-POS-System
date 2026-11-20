@@ -1,55 +1,92 @@
-<a name="readme-top"></a>
+# WebSys POS System
 
-<br/>
-
-<div align="center">
-  <h1 align="center">WebSys POS System</h1>
-</div>
-
-<div align="center">
-  A basic Point-of-Sale web application built using CodeIgniter 4 and MVC architecture.
-</div>
-
-<br/>
+A Point-of-Sale (POS) web application built using CodeIgniter 4, PHP, and MySQL.
 
 ---
 
 ## Overview
 
-This project is a basic Point-of-Sale (POS) system developed for the IT0049 - Web System Technologies course.
+This project is a Point-of-Sale (POS) system developed for IT0049 - Web System Technologies.
 
-The project demonstrates the basic principles of CodeIgniter 4, routing, controllers, views, and the Model-View-Controller (MVC) architecture.
+The system uses CodeIgniter 4 and MVC architecture to manage products, customers, staff accounts, and sales transactions.
 
-This version of the system does not use a database. Customer and user records are stored in static PHP arrays as temporary data sources.
+It also uses a MySQL database to store records, track product stocks, and save sales history.
 
 ## Description
 
-The application contains four main pages:
+The application includes the following pages:
 
-<b>Home:</b> The landing page of the POS system.
+- **Home:** The main page of the POS system.
+- **About:** Information about the project and its developer.
+- **Customer Accounts:** Add, view, edit, and delete customer records.
+- **User Accounts:** Manage staff accounts, passwords, and profile pictures.
+- **Products:** Add, view, edit, and delete products, including their images, prices, and stock quantities.
+- **Record Sale:** Select a product, customer, and quantity to record a transaction.
+- **Sales History:** View previous sales, including the product, customer, staff member, quantity, total price, and date.
+- **Login:** Allows staff members to log in before accessing management pages.
 
-<b>About:</b> Provides information about the application and the technologies used.
+## Features
 
-<b>Customer Accounts:</b> Displays customer records including their full name, email, and phone number.
-
-<b>User Accounts:</b> Displays user and staff records including their username, full name, and role.
-
-The Customer Accounts and User Accounts pages use PHP `foreach` loops to display records from static arrays passed from their respective controllers.
+- Customer, staff, and product management
+- Create, read, update, and delete (CRUD) operations
+- Login and logout using sessions
+- Password hashing for staff accounts
+- Product image and staff avatar uploads
+- Form validation
+- Sales recording
+- Automatic stock deduction
+- Prevention of sales exceeding available stock
+- Sales transaction history
 
 ## Website Instructions
 
 The website can be accessed through the following routes:
 
-* `/` - Home page
-* `/about` - About page
-* `/customers` - Customer Accounts
-* `/users` - User Accounts
+| Route | Page |
+|---|---|
+| `/` | Home |
+| `/about` | About |
+| `/login` | Login |
+| `/logout` | Logout |
+| `/customers` | Customer Accounts |
+| `/customers/new` | Add Customer |
+| `/customers/edit/{id}` | Edit Customer |
+| `/users` | User Accounts |
+| `/users/new` | Add Staff |
+| `/users/edit/{id}` | Edit Staff |
+| `/products` | Product Management |
+| `/products/new` | Add Product |
+| `/products/edit/{id}` | Edit Product |
+| `/sales/new` | Record Sale |
+| `/sales` | Sales History |
 
-Navigation links are provided on the pages to allow users to move between the four sections of the application.
+Staff members must log in before accessing the management pages.
+
+## Sales and Inventory
+
+The system allows logged-in staff to record product sales.
+
+When a sale is recorded, the system calculates the total price, saves the transaction in the database, and automatically deducts the sold quantity from the product's available stock.
+
+If the requested quantity exceeds the available stock, the system rejects the transaction.
+
+For example:
+
+```text
+Product: Keyboard
+Price: PHP 750.00
+Available Stock: 20
+Quantity Sold: 2
+
+Total Price: PHP 1,500.00
+Remaining Stock: 18
+```
+
+The transaction is then displayed on the Sales History page.
 
 ## MVC Flow
 
-The application follows the basic CodeIgniter MVC flow:
+The application follows CodeIgniter's Model-View-Controller (MVC) architecture.
 
 ```text
 User visits a URL
@@ -58,7 +95,9 @@ Route
         ↓
 Controller
         ↓
-Static PHP Array
+Model
+        ↓
+MySQL Database
         ↓
 View
         ↓
@@ -72,58 +111,87 @@ For example:
     ↓
 Customers::index()
     ↓
-$customers array
+CustomerModel
     ↓
-Customers.php view
+MySQL customers table
     ↓
-foreach loop
+customers.php
     ↓
-Customer table
+Customer Accounts page
 ```
 
 ## File Structure
 
 ```text
-WebSys-POS-System
-├─ app
-│  ├─ Config
-│  │  └─ Routes.php
-│  ├─ Controllers
-│  │  ├─ BaseController.php
-│  │  ├─ Home.php
-│  │  ├─ Pages.php
-│  │  ├─ Customers.php
-│  │  └─ Users.php
-│  └─ Views
-│     ├─ Home.php
-│     ├─ About.php
-│     ├─ Customers.php
-│     ├─ Users.php
-│     └─ errors
-├─ public
-├─ tests
-├─ writable
-├─ composer.json
-├─ composer.lock
-├─ spark
-└─ README.md
+WebSys-POS-System/
+├── app/
+│   ├── Config/
+│   │   ├── App.php
+│   │   ├── Database.php
+│   │   ├── Filters.php
+│   │   └── Routes.php
+│   ├── Controllers/
+│   │   ├── Auth.php
+│   │   ├── Customers.php
+│   │   ├── Pages.php
+│   │   ├── Products.php
+│   │   ├── Sales.php
+│   │   └── Users.php
+│   ├── Filters/
+│   │   └── AuthFilter.php
+│   ├── Models/
+│   │   ├── CustomerModel.php
+│   │   ├── ProductModel.php
+│   │   ├── SaleModel.php
+│   │   └── UserModel.php
+│   └── Views/
+│       ├── home.php
+│       ├── about.php
+│       ├── navbar.php
+│       ├── login.php
+│       ├── customers.php
+│       ├── customer_new.php
+│       ├── customer_edit.php
+│       ├── users.php
+│       ├── user_new.php
+│       ├── user_edit.php
+│       ├── products.php
+│       ├── product_new.php
+│       ├── product_edit.php
+│       ├── sale_new.php
+│       └── sales.php
+├── database/
+│   └── Midterm_POS.sql
+├── public/
+├── writable/
+├── composer.json
+├── composer.lock
+├── spark
+└── README.md
 ```
 
-## Technology
+## Technologies Used
 
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge\&logo=php\&logoColor=white)
-![CodeIgniter](https://img.shields.io/badge/CodeIgniter-4-EE4623?style=for-the-badge\&logo=codeigniter\&logoColor=white)
-![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge\&logo=composer\&logoColor=white)
-![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge\&logo=html5\&logoColor=white)
+- PHP 8.2
+- CodeIgniter 4
+- MySQL
+- Composer
+- HTML
+- MVC architecture
+- Session authentication
 
-The project uses:
+## Database
 
-* PHP 8.2
-* CodeIgniter 4
-* Composer
-* HTML
-* MVC architecture
-* Static PHP arrays
+The system uses a MySQL database containing four main tables:
+
+| Table | Purpose |
+|---|---|
+| `products` | Stores product information, prices, images, and stock quantities |
+| `customers` | Stores customer information |
+| `users` | Stores staff accounts, hashed passwords, and avatars |
+| `sales` | Stores sales transactions and references products, customers, and staff |
+
+The database export is included in the repository as `Midterm_POS.sql`.
 
 ## Installation and Setup
 
@@ -133,56 +201,70 @@ Clone the repository:
 git clone https://github.com/CestinaLover/WebSys-POS-System.git
 ```
 
-Navigate to the project directory:
+Open the project folder:
 
 ```bash
 cd WebSys-POS-System
 ```
 
-Install the project dependencies:
+Install dependencies:
 
 ```bash
 composer install
 ```
 
-Create a `.env` file from the provided `env` file and configure the application base URL:
+Create a `.env` file from the provided `env` template.
+
+Configure the application and database:
 
 ```env
+CI_ENVIRONMENT = development
+
 app.baseURL = 'http://localhost:8080/'
+
+database.default.hostname = localhost
+database.default.database = your_database_name
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+database.default.port = 3306
 ```
 
-Start the CodeIgniter development server:
+Import `Midterm_POS.sql` into your MySQL database using phpMyAdmin.
+
+Start the development server:
 
 ```bash
 php spark serve
 ```
 
-Open the application in a browser:
+Open:
 
 ```text
 http://localhost:8080/
 ```
 
+Use an existing staff account from the imported database to log in.
+
 ## Resources
 
-| Resource                               | Purpose                         | Link                                                               |
-| -------------------------------------- | ------------------------------- | ------------------------------------------------------------------ |
-| CodeIgniter 4 User Guide - Routing     | Routing documentation           | https://codeigniter4.github.io/userguide/incoming/routing.html     |
-| CodeIgniter 4 User Guide - Controllers | Controller documentation        | https://codeigniter4.github.io/userguide/incoming/controllers.html |
-| CodeIgniter 4 User Guide               | General framework documentation | https://codeigniter.com/user_guide/                                |
+- [CodeIgniter 4 User Guide](https://codeigniter4.github.io/userguide/)
+- [CodeIgniter Models](https://codeigniter4.github.io/userguide/models/model.html)
+- [CodeIgniter Validation](https://codeigniter4.github.io/userguide/libraries/validation.html)
+- [CodeIgniter Filters](https://codeigniter4.github.io/userguide/incoming/filters.html)
 
-## Project Repository
+## Project Links
 
-GitHub Repository:
+**GitHub Repository:**
 
 https://github.com/CestinaLover/WebSys-POS-System
 
-## Database
+**Hosted Website:**
 
-This version of the project does not use a database.
-
-Customer Accounts and User Accounts use static PHP arrays as temporary data sources, as required by the laboratory activity. A database will be introduced in a later module.
+https://websys-pos-system1.infinityfree.me/
 
 ## Author
 
-CestinaLover
+Aldous Exequiel S. Damaso
+
+IT0049 - Web System Technologies
